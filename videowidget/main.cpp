@@ -80,7 +80,8 @@ int main(int argc, char *argv[])
     }
 
     const QRect availableGeometry = QApplication::desktop()->availableGeometry(&player);
-    player.resize(availableGeometry.width() / 6, availableGeometry.height() / 4);
+    //player.resize(availableGeometry.width() / 6, availableGeometry.height() / 4);
+    player.resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
     player.show();
 
     return app.exec();
