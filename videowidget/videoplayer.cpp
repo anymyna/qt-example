@@ -62,6 +62,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     , positionSlider(0)
     , errorLabel(0)
 {
+    resize(QSize(800,800));
     QVideoWidget *videoWidget = new QVideoWidget;
     videoWidget->setAutoFillBackground(true);
     videoWidget->setBackgroundRole(QPalette::Shadow);
