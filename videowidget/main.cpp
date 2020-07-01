@@ -55,6 +55,7 @@
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
 #include <QtCore/QDir>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -81,8 +82,11 @@ int main(int argc, char *argv[])
 
     const QRect availableGeometry = QApplication::desktop()->availableGeometry(&player);
     //player.resize(availableGeometry.width() / 6, availableGeometry.height() / 4);
-//    player.resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
     player.show();
 
+
+
+
+    qDebug()<<"main currentPath"<< QDir::currentPath()<<endl;
     return app.exec();
 }
