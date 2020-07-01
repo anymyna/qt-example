@@ -82,11 +82,10 @@ int main(int argc, char *argv[])
 
     const QRect availableGeometry = QApplication::desktop()->availableGeometry(&player);
     //player.resize(availableGeometry.width() / 6, availableGeometry.height() / 4);
+
+
+    player.setWindowFlags(player.windowFlags()&~Qt::WindowMaximizeButtonHint);// 禁止最大化按钮
     player.show();
-
-
-
-
     qDebug()<<"main currentPath"<< QDir::currentPath()<<endl;
     return app.exec();
 }
