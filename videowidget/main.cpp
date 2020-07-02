@@ -57,6 +57,7 @@
 #include <QtCore/QDir>
 #include <QDebug>
 #include <QSettings>
+#include <QMessageBox>
 
 int main(int argc, char *argv[])
 {
@@ -101,6 +102,7 @@ int main(int argc, char *argv[])
      //写入完成后删除指针
      delete configIniWrite;
 
+     //Qt读ini文件
      QSettings *configIniRead = new QSettings("hahaya.ini", QSettings::IniFormat);
      //将读取到的ini文件保存在QString中，先取值，然后通过toString()函数转换成QString类型
      QString ipResult = configIniRead->value("/ip/second").toString();
@@ -110,6 +112,43 @@ int main(int argc, char *argv[])
      qDebug() << portResult;
      //读入入完成后删除指针
      delete configIniRead;
+
+      //base64加密
+     QFile origina("hahaya.ini");
+     if(!origina.open(QIODevice::ReadOnly)) {
+         QMessageBox::warning(0, "Read11",
+                              "Read error!",
+                              QMessageBox::Yes);
+     }
+     QByteArray ba = origina.readAll().toBase64();
+
+     QFile dest("dest.xx");
+     if(!dest.open(QIODevice::WriteOnly)) {
+         QMessageBox::warning(0, "Write11",
+                              "Write error!",
+                              QMessageBox::Yes);
+     }
+     dest.write(ba);
+     origina.close();
+     dest.close();
+        //base64解密
+     QFile file("dest.xx");
+     if(!file.open(QIODevice::ReadOnly)) {
+         QMessageBox::warning(0, ("Load Ds File"),
+                              file.errorString(),
+                              QMessageBox::Yes);
+     }
+
+     QByteArray bc = QByteArray::fromBase64(file.readAll());
+     QFile source("source.xx");
+     if(!source.open(QIODevice::WriteOnly)) {
+         QMessageBox::warning(0, "Write11",
+                              "Write error!",
+                              QMessageBox::Yes);
+     }
+     source.write(bc);
+     file.close();
+     source.close();
 
 
     return app.exec();
