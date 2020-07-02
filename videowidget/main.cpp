@@ -56,6 +56,7 @@
 #include <QtCore/QCommandLineOption>
 #include <QtCore/QDir>
 #include <QDebug>
+#include <QSettings>
 
 int main(int argc, char *argv[])
 {
@@ -87,5 +88,29 @@ int main(int argc, char *argv[])
     player.setWindowFlags(player.windowFlags()&~Qt::WindowMaximizeButtonHint);// 禁止最大化按钮
     player.show();
     qDebug()<<"main currentPath"<< QDir::currentPath()<<endl;
+
+     //Qt写ini文件
+     QSettings *configIniWrite = new QSettings("hahaya.ini", QSettings::IniFormat);
+     //向ini文件中写入内容,setValue函数的两个参数是键值对
+     //向ini文件的第一个节写入内容,ip节下的第一个参数
+     configIniWrite->setValue("/ip/first", "192.168.0.1");
+     //向ini文件的第一个节写入内容,ip节下的第二个参数
+     configIniWrite->setValue("ip/second", "127.0.0.1");
+     //向ini文件的第二个节写入内容,port节下的第一个参数
+     configIniWrite->setValue("port/open", "2222");
+     //写入完成后删除指针
+     delete configIniWrite;
+
+     QSettings *configIniRead = new QSettings("hahaya.ini", QSettings::IniFormat);
+     //将读取到的ini文件保存在QString中，先取值，然后通过toString()函数转换成QString类型
+     QString ipResult = configIniRead->value("/ip/second").toString();
+     QString portResult = configIniRead->value("/port/open").toString();
+     //打印得到的结果
+     qDebug() << ipResult;
+     qDebug() << portResult;
+     //读入入完成后删除指针
+     delete configIniRead;
+
+
     return app.exec();
 }
