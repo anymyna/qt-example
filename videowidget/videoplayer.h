@@ -71,6 +71,7 @@ public:
     ~VideoPlayer();
 
     void setUrl(const QUrl &url);
+    void changeEvent(QEvent * event);
 
 public slots:
     void openFile();

@@ -163,6 +163,24 @@ void VideoPlayer::stop()
 }
 
 
+void VideoPlayer::changeEvent(QEvent *event)
+{
+    if(event->type()!=QEvent::WindowStateChange)
+    {
+        qDebug()<<"changeEvent"<<endl;
+        return;
+    }
+    if(this->windowState()==Qt::WindowMaximized)
+    {
+        qDebug()<<"WindowMaximized"<<endl;
+    }
+    if(this->windowState()==Qt::WindowMinimized)
+    {
+        qDebug()<<"WindowMinimized"<<endl;
+    }
+}
+
+
 void VideoPlayer::mediaStateChanged(QMediaPlayer::State state)
 {
     switch(state) {
